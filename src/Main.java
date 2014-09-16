@@ -3,6 +3,7 @@
  */
 import java.util.Random;
 import java.util.ArrayList;
+import java.io.Console;
 public class Main {
     public static Random Dice=new Random();
     public static ArrayList<Item> minor=new ArrayList<Item>();
@@ -11,27 +12,31 @@ public class Main {
     public static ArrayList<Mod> armsmodifiers=new ArrayList<Mod>();
     public static ArrayList<Item> chosen=new ArrayList<Item>();
     public static void main(String args[]){
-        boolean failflag=false;
         if(args.length>=1) {
             populateLists(args[0]);
         }else{
-            System.out.println("Where am I populating my Roll table from?");
+            Console console = System.console();
+            String input = console.readLine("Where am I populating my Roll table from? :");
+            populateLists(input);
         }
-        if (!failflag) {
-            if (args.length == 4) {
+        if (args.length == 4) {
                 rolldice(args[1] + " " + args[2] + " " + args[3]);
-            } else if (args.length == 3) {
+        } else if (args.length == 3) {
                 rolldice(args[1] + " " + args[2]);
-            } else if (args.length == 2) {
+        } else if (args.length == 2) {
                 rolldice(args[1]);
-            } else {
-                System.out.println("How many items do you want?");
-            }
+        } else {
+            Console console = System.console();
+            System.out.println("Where am I populating my Roll table from? :");
+            String input1 = console.readLine("Minor:");
+            String arguments = input1;
+            String input2 = console.readLine("Medium:");
+            arguments = arguments + " " + input2;
+            String input3 = console.readLine("Major:");
+            arguments = arguments + " " + input3;
+            rolldice(arguments);
         }
-        if (!failflag) {
-            printout();
-        }
-
+        printout();
     }
     public static void populateLists(String input){
         System.out.println(input);
